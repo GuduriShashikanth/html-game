@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body{
+            background: rgb(34,193,195);
+            background: linear-gradient(0deg,rgba(34,193,195,1)0%,rgba(121,32,153,1)86%);
+            background-attachment: fixed;
+            margin: 0;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; 
+        }
+        button{
+            width: 100px;
+            height: 30px;
+            background-color: #B80000;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+   <div class="container">
+        <img src="./GTNG Symbol.png" alt="" width="150">
+        <h1>Guess The Number</h1>
+        <button><a href="./game.html"> Play Game</a>
+            
+        </button>
+   </div>
+   <script>
+    function playGame() {
+            const choice = parseInt(document.getElementById('guessedNumber').value);
+
+            if (choice !== target) {
+                tries++;
+                let result = "Wrong Guess!! Try Again";
+                const hint = target < choice ? "You Guessed it too high" : "You Guessed it too low";
+                result += "\n\nHINT:\n" + hint;
+                updateResult(result);
+            } else {
+                const result = `You guessed the correct number after ${tries} tries`;
+                document.getElementById('guessButton').disabled = true;
+                updateResult(result + "\nClick on Play to start a new game");
+            }
+        }
+   </script>
+</body>
+</html>

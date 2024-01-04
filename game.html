@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Number</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: cyan;
+            color: black;
+            text-align: center;
+            margin: auto;
+            padding: 0;
+        }
+
+        #title {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 24px;
+            margin-top: 50px;
+        }
+
+        #result {
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        input {
+            font-size: 11px;
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        button {
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 8px 15px;
+            cursor: pointer; 
+        }
+
+        #playButton {
+            background-color: rgb(128, 255, 156);
+            color: black;
+        }
+
+        #guessButton {
+            background-color: rgb(92, 189, 169);
+            color: black;
+        }
+
+        #exitButton {
+            background-color: #b82741;
+        }
+
+        #buttonsContainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Guessing Game</h1>
+    <p id="result">Click on Play to start a new game</p>
+    <input type="text" id="guessedNumber" placeholder="Enter your guess">
+
+    <button id="guessButton" onclick="playGame()" disabled>Guess</button>
+    <div id="buttonsContainer">
+        <button id="playButton" onclick="newGame()">New Game</button>
+        <!-- <button id="exitButton" onclick="exitGame()">Exit Game</button> -->
+    </div>
+
+    <script>
+        let target = 0;
+        let tries = 0;
+
+        function updateResult(text) {
+            document.getElementById('result').innerHTML = text;
+        }
+
+        function newGame() {
+            document.getElementById('guessButton').disabled = false;
+            target = Math.floor(Math.random() * 100) + 1;
+            tries = 0;
+            updateResult("Guess a number between 1 and 100");
+        }
+
+        function playGame() {
+            const choice = parseInt(document.getElementById('guessedNumber').value);
+
+            if (choice !== target) {
+                tries++;
+                let result = "Wrong Guess!! Try Again";
+                const hint = target < choice ? "You Guessed it too high" : "You Guessed it too low";
+                result += "\n\nHINT:\n" + hint;
+                updateResult(result);
+            } else {
+                const result = `You guessed the correct number after ${tries} tries`;
+                document.getElementById('guessButton').disabled = true;
+                updateResult(result + "\nClick on Play to start a new game");
+            }
+        }
+        
+    </script>
+</body>
+</html>
