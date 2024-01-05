@@ -16,14 +16,16 @@
 
         #title {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 24px;
+            font-size: 30px;
             margin-top: 50px;
+            
         }
 
         #result {
             font-size: 14px;
             font-style: italic;
             margin-top: 20px;
+            font-weight: bold;
         }
 
         input {
@@ -42,17 +44,15 @@
         #playButton {
             background-color: rgb(128, 255, 156);
             color: black;
+            font-weight: bold;
         }
 
         #guessButton {
             background-color: rgb(92, 189, 169);
             color: black;
-        }
+            font-weight: bold;
 
-        #exitButton {
-            background-color: #b82741;
         }
-
         #buttonsContainer {
             display: flex;
             justify-content: center;
@@ -62,10 +62,10 @@
 </head>
 <body>
     <h1 id="title">Guessing Game</h1>
-    <p id="result">Click on Play to start a new game</p>
-    <input type="text" id="guessedNumber" placeholder="Enter your guess">
+    <p id="result">Guess a number between 1 and 100</p>
+    <input type="number" id="guessedNumber" placeholder="Enter your guess">
 
-    <button id="guessButton" onclick="playGame()" disabled>Guess</button>
+    <button id="guessButton" onclick="playGame()">Guess</button>
     <div id="buttonsContainer">
         <button id="playButton" onclick="newGame()">New Game</button>
         <!-- <button id="exitButton" onclick="exitGame()">Exit Game</button> -->
@@ -80,8 +80,9 @@
         }
 
         function newGame() {
-            document.getElementById('guessButton').disabled = false;
+            // document.getElementById('guessButton').disabled = false;
             target = Math.floor(Math.random() * 100) + 1;
+            console.log(target);
             tries = 0;
             updateResult("Guess a number between 1 and 100");
         }
@@ -91,17 +92,26 @@
 
             if (choice !== target) {
                 tries++;
-                let result = "Wrong Guess!! Try Again";
+                let result="";
+                if(tries<7)
+                {
+                result = "Wrong Guess!! Try Again,You have "+(7-tries)+" Tries to Guess" ;
                 const hint = target < choice ? "You Guessed it too high" : "You Guessed it too low";
                 result += "\n\nHINT:\n" + hint;
                 updateResult(result);
+                }
+                else{
+                    result="Out of tries,Better Luck Next Time!"
+                    updateResult(result)
+                }
             } else {
-                const result = `You guessed the correct number after ${tries} tries`;
+                const result = `Congrats!,You guessed the correct number after ${tries} tries`;
                 document.getElementById('guessButton').disabled = true;
-                updateResult(result + "\nClick on Play to start a new game");
+                updateResult(result + "\nClick on New Game to start a new game");
             }
         }
         
     </script>
 </body>
 </html>
+
